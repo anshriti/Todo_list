@@ -4,10 +4,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 
 # Imports for Reordering Feature
 from django.views import View
@@ -16,6 +16,14 @@ from django.db import transaction
 
 from .models import Task
 from .forms import PositionForm
+# views.py
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 
 
 class CustomLoginView(LoginView):
@@ -26,16 +34,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('tasks')
 
-class CustomLogoutView(LogoutView):
-    template_name = 'base/logout.html'
 
-    def post(self, request):
-        logout(request)
-        return redirect('login')
-
-
-    
-    
 class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
