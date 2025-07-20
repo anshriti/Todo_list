@@ -1,0 +1,18 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Logout</h1>
+</div>
+
+<div class="card-body">
+    <p>Are you sure you want to log out?</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <input class="button" type="submit" value="Logout">
+    </form>
+
+    <p><a href="{% url 'login' %}">Back to Login</a></p>
+</div>
+{% endblock content %}
