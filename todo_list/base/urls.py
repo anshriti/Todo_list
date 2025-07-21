@@ -3,6 +3,10 @@ from .views import TaskList, TaskDetail, TaskCreate, TaskUpdate, DeleteView, Cus
 
 from .views import logout_view
 
+from . import views
+
+    
+
 
 
 
@@ -11,7 +15,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
 
     path('register/', RegisterPage.as_view(), name='register'),
-
+    path('toggle/<int:pk>/', views.toggle_complete, name='toggle-complete'),
     path('', TaskList.as_view(), name='tasks'),
     path('task/<int:pk>/', TaskDetail.as_view(), name='task'),
     path('task-create/', TaskCreate.as_view(), name='task-create'),

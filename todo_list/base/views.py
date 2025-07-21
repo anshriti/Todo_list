@@ -18,7 +18,18 @@ from .models import Task
 from .forms import PositionForm
 # views.py
 from django.contrib.auth import logout
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+
+
+
+def toggle_complete(request, pk):
+    task = get_object_or_404(Task, id=pk, user=request.user)
+
+    task.complete = not task.complete
+    task.save()
+
+    return redirect('tasks')  
+
 
 def logout_view(request):
     logout(request)
